@@ -28,7 +28,7 @@ extends:
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
     awsAccessKeyId: $(awsAccessKeyId)
     awsSecretAccessKey: $(awsSecretAccessKey)
-    awsDefaultRegion: $(awsDefaultRegion)
+    awsRegion: $(awsRegion)
     dependencies:
       - checkout: self
       - checkout: terraform-aws
