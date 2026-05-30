@@ -21,6 +21,11 @@ extends:
     tfWorkDir: pinwheel-aws-infra/modules/impl/iam
     tfVarsFile: envs/dev.tfvars
     runApply: false
+    backendAWSServiceConnection: $(backendAWSServiceConnection)
+    backendAWSBucket: $(backendAWSBucket)
+    backendAWSKey: $(backendAWSKey)
+    backendAWSRegion: $(backendAWSRegion)
+    backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
     dependencies:
       - checkout: self
       - checkout: terraform-aws
