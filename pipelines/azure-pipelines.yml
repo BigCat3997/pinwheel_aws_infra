@@ -12,7 +12,7 @@ resources:
       type: github
       name: bigcat3997/pinwheel-aws-infra
       endpoint: github.com_BigCat3997
-      ref: refs/heads/main
+      ref: refs/heads/develop
 
 extends:
   template: templates/workflow-terraform-simple.yml@templates
