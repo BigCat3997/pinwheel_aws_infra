@@ -10,7 +10,7 @@ resources:
       ref: refs/heads/tidy
 
 extends:
-  template: templates/workflow-terraform-simple.yml@one-press-ado-templates
+  template: templates/workflow-terraform-simple.yml@templates
   parameters:
     runningAgent: ubuntu-latest
     terraformWorkingDirectoryPath: infrastructure
