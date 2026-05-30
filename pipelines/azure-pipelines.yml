@@ -19,7 +19,7 @@ extends:
   parameters:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/iam
-    tfVarsFile: envs/dev.tfvars
+    tfVarsFile: envs/prd.tfvars
     runApply: false
     backendAWSServiceConnection: $(backendAWSServiceConnection)
     backendAWSBucket: $(backendAWSBucket)
