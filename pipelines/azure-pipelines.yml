@@ -1,0 +1,18 @@
+trigger:
+  - main
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: bigcat/one-press-ado-templates
+      endpoint: github.com_BigCat3997
+      ref: refs/heads/tidy
+
+extends:
+  template: templates/workflow-terraform-simple.yml@one-press-ado-templates
+  parameters:
+    runningAgent: ubuntu-latest
+    terraformWorkingDirectoryPath: infrastructure
+    tfVarsFile: envs/dev.tfvars
+    runApply: false
