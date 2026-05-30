@@ -18,7 +18,7 @@ extends:
   template: templates/workflow-terraform-simple.yml@templates
   parameters:
     runningAgent: ubuntu-latest
-    tfWorkDir: infrastructure
+    tfWorkDir: pinwheel-aws-infra/modules/impl/iam
     tfVarsFile: envs/dev.tfvars
     runApply: false
     dependencies:
