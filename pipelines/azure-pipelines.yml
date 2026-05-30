@@ -21,3 +21,6 @@ extends:
     tfWorkDir: infrastructure
     tfVarsFile: envs/dev.tfvars
     runApply: false
+    dependencies:
+      - checkout: self
+      - checkout: terraform-aws
