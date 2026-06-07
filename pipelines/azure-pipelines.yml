@@ -18,7 +18,7 @@ extends:
   template: templates/workflow-terraform-simple.yml@templates
   parameters:
     runningAgent: ubuntu-latest
-    tfWorkDir: pinwheel-aws-infra/modules/impl/iam
+    tfWorkDir: pinwheel-aws-infra/modules/impl/dynamodb
     tfVarsFile: envs/prd.tfvars
     runApply: false
     backendAWSServiceConnection: $(backendAWSServiceConnection)
