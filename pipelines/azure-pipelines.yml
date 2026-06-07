@@ -39,7 +39,6 @@ extends:
     tfWorkDir: pinwheel-aws-infra/modules/impl/dynamodb
     tfVarsFile: envs/prd.tfvars
     runApply: false
-    backendAWSServiceConnection: $(backendAWSServiceConnection)
     backendAWSBucket: ${{ parameters.backendAWSBucket }}
     backendAWSKey: ${{ parameters.backendAWSKey }}
     backendAWSDynamoDBTable: ${{ parameters.backendAWSDynamoDBTable }}
