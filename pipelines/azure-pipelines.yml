@@ -14,6 +14,24 @@ resources:
       endpoint: github.com_BigCat3997
       ref: refs/heads/develop
 
+parameters:
+  - name: backendAWSBucket
+    displayName: AWS S3 bucket for terraform backend
+    type: string
+    default: ""
+  - name: backendAWSKey
+    displayName: AWS S3 key for terraform backend
+    type: string
+    default: "terraform.tfstate"
+  - name: backendAWSDynamoDBTable
+    displayName: AWS DynamoDB table for terraform state locking
+    type: string
+    default: ""
+  # - name: backendAWSRegion
+  #   displayName: AWS region for terraform backend
+  #   type: string
+  #   default: ""
+
 extends:
   template: templates/workflow-terraform-simple.yml@templates
   parameters:
@@ -22,9 +40,9 @@ extends:
     tfVarsFile: envs/prd.tfvars
     runApply: false
     backendAWSServiceConnection: $(backendAWSServiceConnection)
-    backendAWSBucket: $(backendAWSBucket)
-    backendAWSKey: $(backendAWSKey)
-    backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
+    backendAWSBucket: ${{ parameters.backendAWSBucket }}
+    backendAWSKey: ${{ parameters.backendAWSKey }}
+    backendAWSDynamoDBTable: ${{ parameters.backendAWSDynamoDBTable }}
     backendAWSRegion: $(awsRegion)
     awsAccessKeyId: $(awsAccessKeyId)
     awsSecretAccessKey: $(awsSecretAccessKey)
