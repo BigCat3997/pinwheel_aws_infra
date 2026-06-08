@@ -1,0 +1,51 @@
+trigger:
+  - main
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: bigcat3997/one-press-ado-templates
+      endpoint: github.com_BigCat3997
+      ref: refs/heads/tidy
+    - repository: terraform-aws
+      type: github
+      name: bigcat3997/pinwheel-aws-infra
+      endpoint: github.com_BigCat3997
+      ref: refs/heads/develop
+
+# parameters:
+# - name: backendAWSBucket
+#   displayName: AWS S3 bucket for terraform backend
+#   type: string
+#   default: ""
+# - name: backendAWSKey
+#   displayName: AWS S3 key for terraform backend
+#   type: string
+#   default: "terraform.tfstate"
+# - name: backendAWSDynamoDBTable
+#   displayName: AWS DynamoDB table for terraform state locking
+#   type: string
+#   default: ""
+# - name: backendAWSRegion
+#   displayName: AWS region for terraform backend
+#   type: string
+#   default: ""
+
+extends:
+  template: templates/workflow-terraform-apply2.yml@templates
+  parameters:
+    runningAgent: ubuntu-latest
+    tfWorkDir: pinwheel-aws-infra/modules/impl/iam
+    tfVarsFile: envs/prd.tfvars
+    runMigrateState: false
+    backendAWSBucket: $(backendAWSBucket)
+    backendAWSKey: $(backendAWSKey)
+    backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
+    backendAWSRegion: $(AWS_REGION)
+    awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
+    awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
+    awsRegion: $(AWS_REGION)
+    dependencies:
+      - checkout: self
+      - checkout: terraform-aws
