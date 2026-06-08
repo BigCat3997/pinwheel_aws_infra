@@ -38,7 +38,8 @@ extends:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/terraform-setup
     tfVarsFile: envs/prd.tfvars
-    runApply: false
+    # runApply: false
+    runMigrateState: false
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: $(backendAWSKey)
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
