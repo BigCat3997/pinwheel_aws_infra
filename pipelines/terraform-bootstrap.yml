@@ -36,9 +36,8 @@ extends:
   template: templates/workflow-terraform-simple.yml@templates
   parameters:
     runningAgent: ubuntu-latest
-    tfWorkDir: pinwheel-aws-infra/modules/impl/terraform-setup
+    tfWorkDir: pinwheel-aws-infra/modules/impl/terraform-bootstrap
     tfVarsFile: envs/prd.tfvars
-    # runApply: false
     runMigrateState: false
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: $(backendAWSKey)
