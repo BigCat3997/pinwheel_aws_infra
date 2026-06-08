@@ -33,7 +33,7 @@ resources:
 #   default: ""
 
 extends:
-  template: templates/workflow-terraform-simple.yml@templates
+  template: templates/workflow-terraform-bootstrap.yml@templates
   parameters:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/terraform-bootstrap
