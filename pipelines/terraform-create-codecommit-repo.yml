@@ -18,7 +18,7 @@ extends:
   template: templates/workflow-terraform-apply2.yml@templates
   parameters:
     runningAgent: ubuntu-latest
-    tfWorkDir: pinwheel-aws-infra/modules/impl/iam
+    tfWorkDir: pinwheel-aws-infra/modules/impl/code-commit
     tfVarsFile: envs/prd.tfvars
     runMigrateState: false
     backendAWSBucket: $(backendAWSBucket)
