@@ -22,6 +22,7 @@ extends:
     tfVarsFile: envs/prd.tfvars
     runMigrateState: false
     createSSHKey: true
+    sshKeyName: ec2-key
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: $(backendAWSKey)
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
