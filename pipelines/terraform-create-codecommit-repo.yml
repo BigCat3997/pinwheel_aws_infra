@@ -21,6 +21,7 @@ extends:
     tfWorkDir: pinwheel-aws-infra/modules/impl/code-commit
     tfVarsFile: envs/prd.tfvars
     runMigrateState: false
+    createSSHKey: true
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: $(backendAWSKey)
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
