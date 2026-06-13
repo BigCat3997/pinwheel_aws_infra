@@ -15,6 +15,14 @@ resources:
       ref: refs/heads/develop
 
 parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - stg
+      - prd
   - name: runMigrateState
     displayName: Run terraform state migration
     type: boolean
@@ -25,10 +33,10 @@ extends:
   parameters:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/terraform-bootstrap
-    tfVarsFile: envs/prd.tfvars
+    tfVarsFile: envs/${{ parameters.environment }}.tfvars
     runMigrateState: ${{ parameters.runMigrateState }}
     backendAWSBucket: $(backendAWSBucket)
-    backendAWSKey: $(backendAWSKey)
+    backendAWSKey: terraform-bootstrap/${{ parameters.environment }}/terraform.tfstate
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
     backendAWSRegion: $(AWS_REGION)
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
