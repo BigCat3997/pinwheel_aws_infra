@@ -1,0 +1,32 @@
+trigger:
+  - main
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: bigcat3997/one-press-ado-templates
+      endpoint: github.com_BigCat3997
+      ref: refs/heads/tidy
+    - repository: terraform-aws
+      type: github
+      name: bigcat3997/pinwheel-aws-infra
+      endpoint: github.com_BigCat3997
+      ref: refs/heads/develop
+
+parameters:
+  - name: sshKeyName
+    displayName: SSH Key Name
+    type: string
+    default: ""
+
+extends:
+  template: templates/workflow-awssm-create-key.yml@templates
+  parameters:
+    runningAgent: ubuntu-latest
+    awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
+    awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
+    awsRegion: $(AWS_REGION)
+    sshKeyName: ${{ parameters.sshKeyName }}
+    dependencies:
+      - checkout: self
