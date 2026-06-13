@@ -25,7 +25,7 @@ parameters:
       - prd
 
 extends:
-  template: templates/workflow-terraform-apply2.yml@templates
+  template: templates/workflow-terraform-apply-aws.yml@templates
   parameters:
     runningAgent: ubuntu-latest
     dependencies:
