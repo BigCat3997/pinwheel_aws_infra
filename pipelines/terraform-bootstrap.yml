@@ -32,8 +32,11 @@ extends:
   template: templates/workflow-terraform-bootstrap.yml@templates
   parameters:
     runningAgent: ubuntu-latest
+    dependencies:
+      - checkout: self
+      - checkout: terraform-aws
     tfWorkDir: pinwheel-aws-infra/modules/impl/terraform-bootstrap
-    tfVarsFile: envs/${{ parameters.environment }}.tfvars
+    tfVarsFile: environments/${{ parameters.environment }}.tfvars
     runMigrateState: ${{ parameters.runMigrateState }}
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: terraform-bootstrap/${{ parameters.environment }}/terraform.tfstate
@@ -42,6 +45,3 @@ extends:
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
     awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
     awsRegion: $(AWS_REGION)
-    dependencies:
-      - checkout: self
-      - checkout: terraform-aws

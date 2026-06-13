@@ -28,6 +28,9 @@ extends:
   template: templates/workflow-terraform-apply2.yml@templates
   parameters:
     runningAgent: ubuntu-latest
+    dependencies:
+      - checkout: self
+      - checkout: terraform-aws
     tfWorkDir: pinwheel-aws-infra/modules/impl/co-located-ec2-rds
     tfVarsFile: environments/${{ parameters.environment }}.tfvars
     backendAWSBucket: $(backendAWSBucket)
@@ -37,6 +40,3 @@ extends:
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
     awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
     awsRegion: $(AWS_REGION)
-    dependencies:
-      - checkout: self
-      - checkout: terraform-aws

@@ -24,9 +24,9 @@ extends:
   template: templates/workflow-awssm-create-key.yml@templates
   parameters:
     runningAgent: ubuntu-latest
+    dependencies:
+      - checkout: self
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
     awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
     awsRegion: $(AWS_REGION)
     sshKeygenComment: ${{ parameters.sshKeyName }}
-    dependencies:
-      - checkout: self

@@ -28,9 +28,11 @@ extends:
   template: templates/workflow-terraform-apply2.yml@templates
   parameters:
     runningAgent: ubuntu-latest
+    dependencies:
+      - checkout: self
+      - checkout: terraform-aws
     tfWorkDir: pinwheel-aws-infra/modules/impl/iam
-    tfVarsFile: envs/${{ parameters.environment }}.tfvars
-    runMigrateState: false
+    tfVarsFile: environments/${{ parameters.environment }}.tfvars
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: iam/${{ parameters.environment }}/terraform.tfstate
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
@@ -38,6 +40,3 @@ extends:
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
     awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
     awsRegion: $(AWS_REGION)
-    dependencies:
-      - checkout: self
-      - checkout: terraform-aws
