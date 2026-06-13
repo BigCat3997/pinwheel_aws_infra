@@ -19,7 +19,7 @@ extends:
   parameters:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/co-located-ec2-rds
-    tfVarsFile: envs/dev.tfvars
+    tfVarsFile: environments/dev.tfvars
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: $(backendAWSKey)
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
