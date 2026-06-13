@@ -27,6 +27,6 @@ extends:
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
     awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
     awsRegion: $(AWS_REGION)
-    sshKeyName: ${{ parameters.sshKeyName }}
+    sshKeygenComment: ${{ parameters.sshKeyName }}
     dependencies:
       - checkout: self
