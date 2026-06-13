@@ -14,21 +14,12 @@ resources:
       endpoint: github.com_BigCat3997
       ref: refs/heads/develop
 
-parameters:
-  - name: createSSHKey
-    displayName: Create SSH Key
-    type: boolean
-    default: false
-
 extends:
   template: templates/workflow-terraform-apply2.yml@templates
   parameters:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/code-commit
     tfVarsFile: envs/prd.tfvars
-    runMigrateState: false
-    createSSHKey: ${{ parameters.createSSHKey }}
-    sshKeyName: ec2-key
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: $(backendAWSKey)
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)

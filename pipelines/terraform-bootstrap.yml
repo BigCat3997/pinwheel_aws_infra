@@ -14,23 +14,11 @@ resources:
       endpoint: github.com_BigCat3997
       ref: refs/heads/develop
 
-# parameters:
-# - name: backendAWSBucket
-#   displayName: AWS S3 bucket for terraform backend
-#   type: string
-#   default: ""
-# - name: backendAWSKey
-#   displayName: AWS S3 key for terraform backend
-#   type: string
-#   default: "terraform.tfstate"
-# - name: backendAWSDynamoDBTable
-#   displayName: AWS DynamoDB table for terraform state locking
-#   type: string
-#   default: ""
-# - name: backendAWSRegion
-#   displayName: AWS region for terraform backend
-#   type: string
-#   default: ""
+parameters:
+  - name: runMigrateState
+    displayName: Run terraform state migration
+    type: boolean
+    default: false
 
 extends:
   template: templates/workflow-terraform-bootstrap.yml@templates
@@ -38,7 +26,7 @@ extends:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/terraform-bootstrap
     tfVarsFile: envs/prd.tfvars
-    runMigrateState: false
+    runMigrateState: ${{ parameters.runMigrateState }}
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: $(backendAWSKey)
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
