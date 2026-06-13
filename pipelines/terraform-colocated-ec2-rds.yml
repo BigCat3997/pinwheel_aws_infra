@@ -14,14 +14,24 @@ resources:
       endpoint: github.com_BigCat3997
       ref: refs/heads/develop
 
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - stg
+      - prd
+
 extends:
   template: templates/workflow-terraform-apply2.yml@templates
   parameters:
     runningAgent: ubuntu-latest
     tfWorkDir: pinwheel-aws-infra/modules/impl/co-located-ec2-rds
-    tfVarsFile: environments/dev.tfvars
+    tfVarsFile: environments/${{ parameters.environment }}.tfvars
     backendAWSBucket: $(backendAWSBucket)
-    backendAWSKey: $(backendAWSKey)
+    backendAWSKey: co-located-ec2-rds/${{ parameters.environment }}/terraform.tfstate
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
     backendAWSRegion: $(AWS_REGION)
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
