@@ -19,6 +19,13 @@ parameters:
     displayName: SSH Key Name
     type: string
     default: ""
+  - name: keyType
+    displayName: SSH Key Type
+    type: string
+    default: ed25519
+    values:
+      - ed25519
+      - rsa
 
 extends:
   template: templates/workflow-awssm-create-key.yml@templates
@@ -30,3 +37,4 @@ extends:
     awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
     awsRegion: $(AWS_REGION)
     sshKeygenComment: ${{ parameters.sshKeyName }}
+    keyType: ${{ parameters.keyType }}
