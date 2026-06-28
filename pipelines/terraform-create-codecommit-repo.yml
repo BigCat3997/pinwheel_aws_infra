@@ -32,7 +32,8 @@ extends:
       - checkout: self
       - checkout: terraform-aws
     tfWorkDir: pinwheel-aws-infra/modules/impl/code-commit
-    tfVarsFile: environments/${{ parameters.environment }}.tfvars
+    # tfVarsFile: environments/${{ parameters.environment }}.tfvars
+    tfVarsFile: resources/terraform-create-codecommit-repo/environments/${{ parameters.environment }}.tfvars
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: code-commit/${{ parameters.environment }}/terraform.tfstate
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
