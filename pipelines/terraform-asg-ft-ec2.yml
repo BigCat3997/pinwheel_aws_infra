@@ -31,10 +31,10 @@ extends:
     dependencies:
       - checkout: self
       - checkout: terraform-aws
-    tfWorkDir: pinwheel-aws-infra/modules/impl/co-located-ec2-rds
-    tfVarsFile: environments/co-located-ec2-rds/${{ parameters.environment }}.tfvars
+    tfWorkDir: pinwheel-aws-infra/modules/impl/asg-ft-ec2
+    tfVarsFile: environments/asg-ft-ec2/${{ parameters.environment }}.tfvars
     backendAWSBucket: $(backendAWSBucket)
-    backendAWSKey: co-located-ec2-rds/${{ parameters.environment }}/terraform.tfstate
+    backendAWSKey: asg-ft-ec2/${{ parameters.environment }}/terraform.tfstate
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
     backendAWSRegion: $(AWS_REGION)
     awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
