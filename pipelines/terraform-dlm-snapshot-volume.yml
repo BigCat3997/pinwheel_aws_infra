@@ -32,7 +32,8 @@ extends:
       - checkout: self
       - checkout: terraform-aws
     tfWorkDir: pinwheel-aws-infra/modules/impl/dlm-common
-    tfVarsFile: environments/${{ parameters.environment }}.tfvars
+    # tfVarsFile: environments/${{ parameters.environment }}.tfvars
+    tfVarsFile: environments/dlm-common/${{ parameters.environment }}.tfvars
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: dlm-common/${{ parameters.environment }}/terraform.tfstate
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)

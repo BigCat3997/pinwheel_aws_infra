@@ -32,7 +32,7 @@ extends:
       - checkout: self
       - checkout: terraform-aws
     tfWorkDir: pinwheel-aws-infra/modules/impl/vpc-common
-    tfVarsFile: environments/${{ parameters.environment }}.tfvars
+    tfVarsFile: environments/vpc-common/${{ parameters.environment }}.tfvars
     backendAWSBucket: $(backendAWSBucket)
     backendAWSKey: vpc-common/${{ parameters.environment }}/terraform.tfstate
     backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
