@@ -1,98 +1,58 @@
-common_tags = {
+aws_region = "us-east-1"
+
+tags = {
   Environment = "dev"
-  Project     = "rookie"
-  Version     = "1.0.0"
-  Created_By  = "terraform"
+  Project     = "pinwheel"
   Managed_By  = "terraform"
-  Deployed_By = "manual"
 }
 
-create_vpc     = true
-vpc_name       = "bc-vpc-rookie-dev-0"
-vpc_cidr_block = "10.70.0.0/21"
+vpc_name       = "bc-vpc-rds-dual-backup-dev-0"
+vpc_cidr_block = "10.95.0.0/16"
 
 private_subnets = [
   {
-    name = "bc-subnet-rookie_private-dev-0"
-    cidr = "10.70.4.0/24"
+    name = "bc-subnet-rds-private-dev-0"
+    cidr = "10.95.1.0/24"
     az   = "us-east-1a"
   },
   {
-    name = "bc-subnet-rookie_private-dev-1"
-    cidr = "10.70.5.0/24"
+    name = "bc-subnet-rds-private-dev-1"
+    cidr = "10.95.2.0/24"
     az   = "us-east-1b"
   }
 ]
 
-public_subnets = [
-  {
-    name = "bc-subnet-rookie_public-dev-0"
-    cidr = "10.70.0.0/24"
-    az   = "us-east-1a"
-  },
-  {
-    name = "bc-subnet-rookie_public-dev-1"
-    cidr = "10.70.1.0/24"
-    az   = "us-east-1b"
-  }
-]
+db_sg_name        = "bc-sg-rds-dual-backup-dev-0"
+db_ingress_cidrs  = ["10.95.0.0/16"]
+rds_identifier    = "bc-rds-mysql-dual-backup-dev-0"
+db_name           = "app_db"
+secondary_db_name = "app_db_aux"
 
-eips = [
-  {
-    name = "bc-eip-rookie_nat-dev-0"
-  },
-  {
-    name = "bc-eip-rookie_nat-dev-1"
-  }
-]
+master_username             = "admin"
+manage_master_user_password = true
 
-nat_gateways = [
-  {
-    name        = "bc-nat-rookie-dev-0"
-    subnet_name = "bc-subnet-rookie_private-dev-0"
-    eip_name    = "bc-eip-rookie_nat-dev-0"
-  },
-  {
-    name        = "bc-nat-rookie-dev-1"
-    subnet_name = "bc-subnet-rookie_private-dev-1"
-    eip_name    = "bc-eip-rookie_nat-dev-1"
-  }
-]
+rds_instance_class = "db.t3.medium"
+engine_version     = "8.0"
 
-internet_gateway_name = "bc-igw-rookie-dev-0"
+allocated_storage     = 50
+max_allocated_storage = 100
+storage_type          = "gp3"
+storage_encrypted     = true
 
-public_route_tables = [
-  { name = "bc-rt-rookie_public-dev-0" },
-  { name = "bc-rt-rookie_public-dev-1" }
-]
+multi_az            = true
+publicly_accessible = false
 
-private_route_tables = [
-  { name = "bc-rt-rookie_private-dev-0", nat_gw_name = "bc-nat-rookie-dev-0" },
-  { name = "bc-rt-rookie_private-dev-1", nat_gw_name = "bc-nat-rookie-dev-1" }
-]
+# First backup: RDS built-in automated backup at 00 UTC window
+automated_backup_retention_days = 7
+automated_backup_window         = "00:00-00:30"
 
-public_rtb_assoc = [
-  {
-    key              = "bc-rtba-public-dev-0"
-    subnet_name      = "bc-subnet-rookie_public-dev-0"
-    route_table_name = "bc-rt-rookie_public-dev-0"
-  },
-  {
-    key              = "bc-rtba-public-dev-1"
-    subnet_name      = "bc-subnet-rookie_public-dev-1"
-    route_table_name = "bc-rt-rookie_public-dev-1"
-  }
-]
-
-private_rtb_assoc = [
-  {
-    key              = "bc-rtba-private-dev-0",
-    subnet_name      = "bc-subnet-rookie_private-dev-0",
-    route_table_name = "bc-rt-rookie_private-dev-0"
-  },
-  {
-    key              = "bc-rtba-private-dev-1",
-    subnet_name      = "bc-subnet-rookie_private-dev-1",
-    route_table_name = "bc-rt-rookie_private-dev-1"
-  }
-]
+# Second backup: AWS Backup at 12 UTC
+create_aws_backup              = true
+aws_backup_vault_name          = "bc-rds-dual-backup-vault-dev-0"
+aws_backup_plan_name           = "bc-rds-dual-backup-plan-dev-0"
+aws_backup_selection_name      = "bc-rds-dual-backup-selection-dev-0"
+aws_backup_role_name           = "bc-role-rds-dual-backup-dev-0"
+aws_backup_schedule_expression = "cron(0 12 * * ? *)"
+aws_backup_start_window        = 60
+aws_backup_completion_window   = 180
+aws_backup_retention_days      = 30
