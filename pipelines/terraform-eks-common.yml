@@ -1,0 +1,42 @@
+trigger:
+  - main
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: bigcat3997/one-press-ado-templates
+      endpoint: github.com_BigCat3997
+      ref: refs/heads/tidy
+    - repository: terraform-aws
+      type: github
+      name: bigcat3997/pinwheel-aws-infra
+      endpoint: github.com_BigCat3997
+      ref: refs/heads/develop
+
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - stg
+      - prd
+
+extends:
+  template: templates/workflow-terraform-apply-aws.yml@templates
+  parameters:
+    runningAgent: ubuntu-latest
+    dependencies:
+      - checkout: self
+      - checkout: terraform-aws
+    tfWorkDir: pinwheel-aws-infra/modules/impl/eks-common
+    tfVarsFile: environments/eks-common/${{ parameters.environment }}.tfvars
+    backendAWSBucket: $(backendAWSBucket)
+    backendAWSKey: eks-common/${{ parameters.environment }}/terraform.tfstate
+    backendAWSDynamoDBTable: $(backendAWSDynamoDBTable)
+    backendAWSRegion: $(AWS_REGION)
+    awsAccessKeyId: $(AWS_ACCESS_KEY_ID)
+    awsSecretAccessKey: $(AWS_SECRET_ACCESS_KEY)
+    awsRegion: $(AWS_REGION)
